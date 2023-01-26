@@ -1,5 +1,6 @@
 use std::io;
 use rand::Rng;
+use std::cmp::Ordering;
 fn main() {
     println!("Hello, world!");
     println!("Guess the number");
@@ -13,7 +14,7 @@ fn main() {
     println!("Please input your guess");
 
     //Reading intput from stdin and input is stored into guess and returns Result
-    //We are passing guess as a ref -> & 
+    // We are passing guess as a ref -> & 
     // Expect is to handle error, io::Result type has an expect() method that exits program  with provided message if Resul is an error
     io::stdin().read_line(&mut guess).expect("Failed to read line!");
     println!("You guessed {}",guess);
@@ -28,4 +29,14 @@ fn main() {
     }else {
         println!("too low");
     }
+
+// Match will pattern matching where we compare >, <, = to our secret_number  
+// cmp will return an ordering tyoe , that is an enum with 3 variants, each variant is a type too
+//  Ordering::Greater [Pattern] => println! [Code to run if pattern matches]
+// Statement ends with ; here we are seperating with ,   because they are expressions
+match x.cmp(&secret_number){
+    Ordering::Greater => println!("guess too high"),
+    Ordering::Less => println!("guess too low"),
+    Ordering::Equal => println!("You got it right"),
+}
 }
